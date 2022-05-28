@@ -1,6 +1,6 @@
 {
-  "name": "notion-to-md",
-  "version": "2.3.3",
+  "name": "notion2md",
+  "version": "2.4.0",
   "engines": {
     "node": ">=12"
   },
