@@ -1,5 +1,6 @@
 import { CalloutIcon } from '../types';
 import asciitable from 'asciitable.js';
+import opengraph from './opengraph';
 
 export const inlineCode = (text: string) => {
   return `\`${text}\``;
@@ -89,3 +90,50 @@ export const table = (cells: string[][]) => {
   const matrix = [cells[0], null, ...cells.slice(1)];
   return asciitable(matrix);
 };
+
+
+export const preview = async (url: string) => {
+  const data = await opengraph(url);
+  const og = data.result;
+
+  if (og) {
+    const icon = og.ogImage?.url ? `![favicon](${og.favicon}) ` : '';
+    const preview = og.ogImage?.url ? `![image](${og.ogImage.url}) ` : '';
+    const title = og.ogSiteName || og.ogTitle;
+    const description = og.ogDescription || '';
+  
+    const lines = [
+      `[${icon}**${title}**](${url})`,
+      description.replace(/\n/g, "  "),
+      url
+    ];
+
+    return lines.filter(Boolean).map(line => `> ${line}`).join('  \n');
+  }
+  else {
+    return `> [${url}](${url})`;
+  }
+}
+
+export const bookmark = async (url: string) => {
+  const data = await opengraph(url);
+  const og = data.result;
+
+  if (og) {
+    const icon = og.ogImage?.url ? `![favicon](${og.favicon}) ` : '';
+    const preview = og.ogImage?.url ? `![image](${og.ogImage.url}) ` : '';
+    const title = og.ogTitle;
+    const description = og.ogDescription || '';
+  
+    const lines = [
+      `[${preview}**${title}**](${url})`,
+      description.replace(/\n/g, "  "),
+      url
+    ];
+
+    return lines.filter(Boolean).map(line => `> ${line}`).join('  \n');
+  }
+  else {
+    return `> [${url}](${url})`;
+  }
+}
