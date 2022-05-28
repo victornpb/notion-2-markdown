@@ -68,6 +68,10 @@ export const todo = (text: string, checked: boolean) => {
 };
 
 export const image = (alt: string, href: string) => {
+  if (/^https?:\/\//.test(alt)) {
+    // if alt is an external url, turn it into a "image link"
+    return link(`![](${href})`, href);
+  }
   return `![${alt}](${href})`;
 };
 
