@@ -12,7 +12,8 @@
     "prebuild": "npm run clean",
     "clean": "rm -rf ./build",
     "test": "jest",
-    "test:watch": "jest -w"
+    "test:watch": "jest -w",
+    "demo": "npm --prefix ./e2e start"
   },
   "keywords": [
     "notion",
@@ -45,6 +46,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "asciitable.js": "^2.0.1"
+    "asciitable.js": "^2.0.1",
+    "open-graph-scraper": "^4.11.0"
   }
 }
